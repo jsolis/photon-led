@@ -2,7 +2,7 @@
 // Controlling LEDs over the Internet
 // -----------------------------------
 
-// curl https://api.particle.io/v1/devices/pretzel/led \
+// curl https://api.particle.io/v1/devices/dorito/led \
 //  -d access_token=xxx \
 //  -d params=l1,HIGH
 
