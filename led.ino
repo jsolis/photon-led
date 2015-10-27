@@ -9,11 +9,12 @@
 // name the pins
 int led1 = D0;
 int led2 = D7;
+String ledStatus = "off";
 
 // This routine runs only once upon reset
 void setup() {
-   //Register our Spark function here
-   Spark.function("led", ledControl);
+   //Register our Particle function here
+   Particle.function("led", ledControl);
 
    // Configure the pins to be outputs
    pinMode(led1, OUTPUT);
@@ -22,6 +23,9 @@ void setup() {
    // Initialize both the LEDs to be OFF
    digitalWrite(led1, LOW);
    digitalWrite(led2, LOW);
+
+   //Register Particle variable
+   Particle.variable("ledStatus", ledStatus);
 }
 
 
@@ -43,8 +47,13 @@ int ledControl(String command) {
    if (pinNumber < 0 || pinNumber > 7) return -1;
 
    // find out the state of the led
-   if(command.substring(3,7) == "HIGH") state = 1;
-   else if(command.substring(3,6) == "LOW") state = 0;
+   if (command.substring(3,7) == "HIGH") {
+     state = 1;
+     ledStatus = "on";
+   } else if (command.substring(3,6) == "LOW") {
+     state = 0;
+     ledStatus = "off";
+   }
    else return -1;
 
    // write to the appropriate pin
